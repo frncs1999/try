@@ -21,10 +21,13 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-/*
-Route::get('/', ['as' => 'products.index', 'uses' => 'ProductsController@index']);
-Route::post('/', ['as' => 'products.add', 'uses' => 'ProductsController@add']);
-Route::get('/{id}', ['as' => 'products.delete', 'uses' => 'ProductsController@delete']);
-Route::get('edit/{id}', ['as' => 'products.edit', 'uses' => 'ProductsController@edit']);
-Route::post('edit/{id}', ['as' => 'products.update', 'uses' => 'ProductsController@update']);
-*/
+// Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
+// Route::get('/user', ['as' => 'user.index', 'uses' => 'UserController@index']);   //display users
+// Route::get('/prod', ['as' => 'products.index', 'uses' => 'ProductsController@index']);
+// Route::post('/add', ['as' => 'products.add', 'uses' => 'ProductsController@add']);
+// Route::get('/del/{id}', ['as' => 'products.delete', 'uses' => 'ProductsController@delete']);
+// Route::get('/edit/{id}', ['as' => 'products.edit', 'uses' => 'ProductsController@edit']);
+// Route::post('/upd/{id}', ['as' => 'products.update', 'uses' => 'ProductsController@update']);
+
+// Route::post('/login', ['as' => 'users.login', 'uses' => 'AuthController@login']);
+// Route::get('/auth', ['as' => 'users.auth', 'uses' => 'AuthController@authenticate']);

@@ -7,18 +7,20 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    public function index() {
+    public function index() 
+    {
         $products = Products::get();
-        return view('index')->with(compact('products'));
+        return response()->json($products, 201);
     }
 
-    public function add(Request $request) {
+    public function add(Request $request) 
+    {
         \Log::info($request);
         $products = new Products();
-        $products->productname = $request->productName;
-        $products->productdes = $request->productDes;
+        $products->productname = $request->productname;
+        $products->productdes = $request->productdes;
         $products->save();
-        return redirect()->back();
+        return response()->json($products, 201);
     }
 
     public function edit($id)
@@ -27,23 +29,21 @@ class ProductsController extends Controller
         return view('edit', compact('products'));
     }
 
-    public function update(Request $request, $id) {
-        $request->validate([
-            'productName' => 'required',
-            'productDes' => 'required'
-          ]);
-          $products = Products::find($id);
-          $products->productname = $request->get('productName');
-          $products->productdes = $request->get('productDes');
-          $products->save();
-          return redirect()->route('products.index');
+    public function update(Request $request, $id) 
+    {
+        $products = Products::find($id);
+        $products->productname = $request->productname;
+        $products->productdes = $request->productdes;
+        $products->save();
+        return response()->json($products, 200);
     }
 
-    public function delete($id) {
+    public function delete($id) 
+    {
         $products = Products::find($id);
         if($products){
             $products->delete();
         }
-        return redirect()->back();
+        return response()->json($products, 201);
     }
 }
