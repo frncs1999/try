@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class AuthController extends Controller
 {
@@ -13,13 +17,7 @@ class AuthController extends Controller
         $username = $request->username;
         $password = $request->password;
 
-        // $userdata = array(
-        //     'username' => 'test',
-        //     'password' => '123456'
-        // );
-
         $user = Users::where('username', $username)->first();
-        //$pw = Users::where('password', $password)->first();
 
         $header = [
             'x-alert-type' => 'error',
@@ -29,17 +27,23 @@ class AuthController extends Controller
         if (is_null($user)) {
             return response('error', 400)->withHeaders($header);
         }
-        // else if (is_null($pw)) {
-        //     return response('error', 400)->withHeaders($header);
-        // }
-        else return response('success');
+        if (!Hash::check($password, $user->password)) {
+            return response('error', 400)->withHeaders($header);
+        }
 
+        $logged = (['id' => $user->id]);
+        Auth::loginUsingId($logged);
 
-        Auth::login($user);
+        // return response('success', 200);
+        // return response(['Logged in' => Auth::check(), 'Credentials' => Auth::user()]);
+        
+        return response()->json(['auth' => Auth::check()]);
+        //return response(['auth' => Auth::check()]);
     }
 
-    public function authenticate()
+    public function index()
     {
-        return Auth::user();
+        if (Auth::check() == true) return response(['Logged in' => Auth::check()]);
+        else return response(['Logged in' => Auth::check()]);
     }
 }
