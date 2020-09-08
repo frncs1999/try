@@ -31,3 +31,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::post('/login', ['as' => 'users.login', 'uses' => 'AuthController@login']);
 // Route::get('/auth', ['as' => 'users.auth', 'uses' => 'AuthController@authenticate']);
+
+Route::post('/try', ['as' => 'auth.login', 'uses' => 'AuthController@login']);

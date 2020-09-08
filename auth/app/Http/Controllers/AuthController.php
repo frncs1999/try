@@ -25,25 +25,27 @@ class AuthController extends Controller
         ];
 
         if (is_null($user)) {
-            return response('error', 400)->withHeaders($header);
+            return response('Invalid username', 400)->withHeaders($header);
         }
         if (!Hash::check($password, $user->password)) {
-            return response('error', 400)->withHeaders($header);
+            return response('Username and password does not match', 400)->withHeaders($header);
         }
 
-        $logged = (['id' => $user->id]);
-        Auth::loginUsingId($logged);
+        // $logged = (['id' => $user->id]);
+        // Auth::loginUsingId($logged);
+
+        Auth::attempt(['username' => $username, 'password' => $password]);
 
         // return response('success', 200);
         // return response(['Logged in' => Auth::check(), 'Credentials' => Auth::user()]);
         
         return response()->json(['auth' => Auth::check()]);
-        //return response(['auth' => Auth::check()]);
+        // return response(['auth' => Auth::check()]);
     }
 
     public function index()
     {
-        if (Auth::check() == true) return response(['Logged in' => Auth::check()]);
+        if (Auth::check() == true) return view('home');
         else return response(['Logged in' => Auth::check()]);
     }
 }

@@ -18,15 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Auth::routes();
+
 //Route::get('/user', ['as' => 'user.index', 'uses' => 'UserController@index']);
 
 Route::prefix('product')->group(function(){
     
-    Route::get('/prod', ['as' => 'products.index', 'uses' => 'ProductsController@index']);
-    Route::post('/add', ['as' => 'products.add', 'uses' => 'ProductsController@add']);
-    Route::get('/del/{id}', ['as' => 'products.delete', 'uses' => 'ProductsController@delete']);
-    Route::get('/edit/{id}', ['as' => 'products.edit', 'uses' => 'ProductsController@edit']);
-    Route::post('/upd/{id}', ['as' => 'products.update', 'uses' => 'ProductsController@update']);
+    Route::get('/index', ['as' => 'product.index','uses'=> 'ProductsController@index']);
+    Route::post('/add', ['as' => 'product.addItem','uses'=> 'ProductsController@addItem']);
+    Route::get('/show/{id}', ['as' => 'product.show','uses'=> 'ProductsController@show']);
+    Route::get('/del/{id}', ['as' => 'product.deleteProduct','uses'=> 'ProductsController@deleteProduct']);
+    Route::get('/edit/{id}', ['as' => 'product.edit','uses'=> 'ProductsController@edit']);
+    Route::post('/upd/{id}', ['as' => 'product.updateProduct','uses'=> 'ProductsController@updateProduct']);
 
 });
 
@@ -35,6 +38,5 @@ Route::prefix('auth')->group(function(){
     Route::get('/home', ['as' => 'auth.home', 'uses' => 'AuthController@index']);
     Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
     Route::post('/login', ['as' => 'auth.login', 'uses' => 'AuthController@login']);
-    Route::get('/author', ['as' => 'auth.auth', 'uses' => 'AuthController@authenticate']);
    
 });
