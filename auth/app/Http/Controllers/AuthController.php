@@ -36,16 +36,18 @@ class AuthController extends Controller
 
         Auth::attempt(['username' => $username, 'password' => $password]);
 
-        // return response('success', 200);
-        // return response(['Logged in' => Auth::check(), 'Credentials' => Auth::user()]);
+        if (Auth::validate(['username' => $username, 'password' => $password])) {
+            return response(['Credentials Validated' => Auth::validate(['username' => $username, 'password' => $password]), 'Logged in' => Auth::check(), 'Credentials' => Auth::user()], 200, );
+        }
         
-        return response()->json(['auth' => Auth::check()]);
-        // return response(['auth' => Auth::check()]);
+        // return response()->json(['auth' => Auth::check()]);
     }
 
-    public function index()
-    {
-        if (Auth::check() == true) return view('home');
-        else return response(['Logged in' => Auth::check()]);
-    }
+    // public function index()
+    // {
+    //     if (Auth::check() == false ) return response(['Logged in' => Auth::check()]);
+    //     else return view('index');
+
+    //     // else return Auth::user();
+    // }
 }

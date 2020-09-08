@@ -20,8 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Auth::routes();
 
-//Route::get('/user', ['as' => 'user.index', 'uses' => 'UserController@index']);
-
 Route::prefix('product')->group(function(){
     
     Route::get('/index', ['as' => 'product.index','uses'=> 'ProductsController@index']);
@@ -35,8 +33,8 @@ Route::prefix('product')->group(function(){
 
 Route::prefix('auth')->group(function(){
     
-    Route::get('/home', ['as' => 'auth.home', 'uses' => 'AuthController@index']);
+    // Route::get('/home', ['as' => 'auth.home', 'uses' => 'AuthController@index']);
     Route::get('/users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
-    Route::post('/login', ['as' => 'auth.login', 'uses' => 'AuthController@login']);
+    Route::post('/log', ['as' => 'auth.login', 'uses' => 'AuthController@login']);
    
 });
